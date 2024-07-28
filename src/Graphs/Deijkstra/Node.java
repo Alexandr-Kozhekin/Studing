@@ -2,45 +2,53 @@ package Graphs.Deijkstra;
 
 import java.util.*;
 
-public class Node<T> {
+public class Node {
 
-    private T value;
-    private Set<Node<T>> neighbors;
-    private Map<Node<T>, Integer> costs;
+    private String value;
+    //дистанция до соседних узлов
+    private Map<Node, Integer> costs;
+    //дистанция до текущего узла
+    private int cost = Integer.MAX_VALUE;
 
-    public Node(T value) {
+    public Node(String value) {
         this.value = value;
-        this.neighbors = new LinkedHashSet<>();
         this.costs = new LinkedHashMap<>();
     }
 
-    public void connect(Node<T> node, Integer cost) {
-        this.neighbors.add(node);
-        this.costs.put(node, cost);
+    public void connect(Node node, Integer cost) {
+        costs.put(node, cost);
     }
 
-    public T getValue() {
+    public String getValue() {
         return value;
     }
 
-    public Set<Node<T>> getNeighbors() {
-        return neighbors;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public Map<Node<T>, Integer> getCosts() {
+    public Map<Node, Integer> getCosts() {
         return costs;
     }
 
-    public void setNeighbors(Set<Node<T>> neighbors) {
-        this.neighbors = neighbors;
+    public void setCosts(Map<Node, Integer> costs) {
+        this.costs = costs;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Node<?> that = (Node<?>) o;
-        return Objects.equals(value, that.value);
+        Node node = (Node) o;
+        return Objects.equals(value, node.value);
     }
 
     @Override
