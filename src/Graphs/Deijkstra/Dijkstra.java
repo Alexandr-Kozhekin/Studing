@@ -19,7 +19,7 @@ public class Dijkstra {
      *необходимо передать результат вызова метода search(Graph graph). Метод printShortCut возвращает String
      *так-что результат можно просто вывести в консоль. Результат будет в формате start -> b -> a -> end.
      */
-    public static Map<Node, Node> search(Graph graph) {
+    public static Map<Node, Node> search(Graph graph, Node start) {
         /*
         Карта parents содержит все узлы ближайшие к узлу start
         Карта costs содержит дистанцию которую необходимо пройти к узлу start
@@ -37,7 +37,7 @@ public class Dijkstra {
         максимальное значение)
          */
         for(Node node : graph.getNodes()) {
-            if(node.getValue().equals("start")) {
+            if(node.equals(start)) {
                 for(Node neighbors : node.getCosts().keySet()) {
                     parents.put(neighbors, node);
                     costs.put(neighbors, node.getCosts().get(neighbors));
@@ -94,23 +94,19 @@ public class Dijkstra {
         return lowestCostNode;
     }
 
-    public static String printShortCut(Map<Node, Node> parents) {
+    public static String printShortCut(Map<Node, Node> result) {
 
         StringBuilder builder = new StringBuilder();
-        List<String> nodes = new ArrayList<>();
-        Node node = parents.get(new Node("end"));
+        ArrayList<Node> list = new ArrayList<>(result.keySet());
 
-        nodes.add("end");
+        Node node = list.get(list.size()-1);
 
         while(node != null) {
-            nodes.add(node.getValue());
-            node = parents.get(node);
-        }
-
-        for(int i = nodes.size()-1; i >= 0; i--) {
-            builder.append(nodes.get(i));
-            if(!nodes.get(i).equals("end"))
-                builder.append(" -> ");
+            Node value = result.get(node);
+            if(value != null) {
+                builder.append(node.getValue()).append(" -> ").append(value.getValue()).append(" ");
+            }
+            node = value;
         }
 
         return builder.toString();
