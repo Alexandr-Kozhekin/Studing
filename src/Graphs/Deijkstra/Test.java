@@ -24,17 +24,17 @@ public class Test {
 //        graph.addNode(nodeB);
 //        graph.addNode(end);
 //
-//        Map<Node, Node> map = Dijkstra.search(graph);
+//        Map<Node, Node> map = Dijkstra.search(graph, start);
 //        System.out.println(Dijkstra.printShortCut(map));
 
         Graph graph = new Graph();
 
-        Node start = new Node("start");
+        Node start = new Node("s");
         Node nodeA = new Node("a");
         Node nodeB = new Node("b");
         Node nodeC = new Node("c");
         Node nodeD = new Node("d");
-        Node end = new Node("end");
+        Node end = new Node("e");
 
         start.connect(nodeB, 5);
         start.connect(nodeA, 2);
@@ -53,7 +53,7 @@ public class Test {
         graph.addNode(nodeD);
         graph.addNode(end);
 
-        Map<Node, Node> map = Dijkstra.search(graph);
+        Map<Node, Node> map = Dijkstra.search(graph, start);
         System.out.print(Dijkstra.printShortCut(map));
 
     }
